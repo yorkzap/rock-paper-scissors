@@ -1,9 +1,8 @@
 //Make rock paper scissors against computer
-//getComputerChoice function will return computer choice, either rock paper or scissors
-//computerSelection will get the output of getComputerChoice function into itself
-//playerSelection will get user input via prompt
-//playRound function will play a single round against computer by comparing computerchoice and playerChoice, and then shows the winner with the string like "You Lose! Paper beats Rock"
-//game function will use playRound function as a callback to play 5 total round of the game and keep the score. At the end, will display the winner. Choose a for loop for this one.
+
+//playerSelection gets get user input via prompt
+//playRound function gets play a single round against computer by comparing computerchoice and playerChoice, and then shows the winner with the string like "You Lose! Paper beats Rock"
+//game function gets use playRound function as a callback to play 5 total round of the game and keep the score. At the end, will display the winner. Choose a for loop for this one.
 //Create helper functions as needed
 
 // Return random rock/paper/scissor computer choice
@@ -19,4 +18,24 @@ function getComputerChoice () {
     }
 }
 
-console.log(getComputerChoice());
+//testing getComputerChoice
+console.log("computer:" + getComputerChoice());
+
+// Return playerSelection with proper alphabet casing to match strings
+function getPlayerChoice () {
+    let playerSelection = prompt('Choose Rock, Paper or Scissors');
+    // Capitalize first letter and lower case the following
+    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
+    
+    if (playerSelection == "Rock" || playerSelection == "Rocks") {
+        return "Rock";
+    }
+    if (playerSelection = "Paper" || playerSelection == "Papers") {
+        return "Paper";
+    }
+    if (playerSelection = "Scissor" || playerSelection == "Scissors")
+    return "Scissor";
+}
+
+//testing getPlayerChoice
+console.log("player: " + getPlayerChoice());
