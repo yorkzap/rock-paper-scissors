@@ -36,5 +36,20 @@ function casePlayerInput () {
     return playerInput;
 }
 
-//testing player choice
-console.log("What you picked (" + casePlayerInput()+ ")");
+
+// only allow rock/paper/scissors input
+function allowedPlayerInput(playerInput) {
+    switch (true) {
+        case (playerInput == rock || playerInput == rock + "s"):
+            console.log("What you picked (" + rock+ ")");
+
+        case (playerInput == paper || playerInput == paper + "s"):
+            console.log("What you picked (" + paper+ ")");
+
+        case (playerInput == scissors || playerInput == scissors.slice(0,-1)):
+            console.log("What you picked (" + scissors+ ")");
+
+    }
+}
+
+allowedPlayerInput(casePlayerInput());
