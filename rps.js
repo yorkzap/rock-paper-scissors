@@ -1,7 +1,5 @@
 //Make rock paper scissors against computer
 
-//game function will use playRound function as a callback to play 5 total round of the game and keep the score. At the end, will display the winner. Choose a for loop for this one.
-//Create helper functions as needed
 
 // Variables for the game
 
@@ -84,34 +82,43 @@ function playRound(playerSelection, computerSelection) {
   
 
 
-//function called game(). Call the playRound function inside of this one to play
-//a 5 round game that keeps score and reports a winner or loser at the end.
+//Call the playRound() 5 times keeping score
 
 function game () {
     let winCount = 0;
     let loseCount = 0;
-    let tieCount = 0;
     let winner;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 10; i++) {
+
+        if (winCount == 5) {
+            console.log(win);
+            i = 11;
+            return win;
+        }
+
+        if (loseCount == 5) {
+            console.log(lose);
+            i = 11;
+            return lose;
+        }
+
         playerSelection = allowedPlayerInput(casePlayerInput());
         computerSelection = getComputerChoice();
         round = playRound(playerSelection, computerSelection);
-        if (round == win) {
+        
+        if (round == win && winCount < 5) {
             winCount += 1;
             console.log(win + " the game " + ((parseInt(i) + 1)));
         }
-        else if (round == lose) {
+        else if (round == lose && loseCount <5) {
             loseCount += 1;
             console.log(lose + " the game " + ((parseInt(i) + 1)));
         }
-        else {
+        else if (round == tie) {
             i -= 1;
             console.log(tie + "...let's try again");
         }
     }
-    winCount > loseCount ? winner = "You won the 5 round game" : winner = "Computer won the 5 round game";
-    console.log(winner);
-    return winner;
 }
 
 game();
