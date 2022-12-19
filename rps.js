@@ -1,6 +1,6 @@
 //Make rock paper scissors against computer
 
-//playerSelection gets get user input via prompt
+
 //playRound function gets play a single round against computer by comparing computerchoice and playerChoice, and then shows the winner with the string like "You Lose! Paper beats Rock"
 //game function gets use playRound function as a callback to play 5 total round of the game and keep the score. At the end, will display the winner. Choose a for loop for this one.
 //Create helper functions as needed
@@ -30,11 +30,15 @@ function getPlayerChoice () {
     if (playerSelection == "Rock" || playerSelection == "Rocks") {
         return "Rock";
     }
-    if (playerSelection = "Paper" || playerSelection == "Papers") {
+    else if (playerSelection == "Paper" || playerSelection == "Papers") {
         return "Paper";
     }
-    if (playerSelection = "Scissor" || playerSelection == "Scissors")
-    return "Scissor";
+    else if (playerSelection == "Scissor" || playerSelection == "Scissors") {
+        return "Scissor";
+    }
+    else {
+        return "Sorry, you have entered an invalid choice...";
+    }
 }
 
 //testing getPlayerChoice
