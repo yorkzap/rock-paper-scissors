@@ -16,18 +16,19 @@ function getComputerChoice () {
     let random3 = Math.floor(Math.random() * 3) + 1;
     switch (random3) {
         case 1:
+            console.log("What computer picked (" + rock+ ")");
             return rock;
         case 2:
+            console.log("What computer picked (" + paper+ ")");
             return paper;
         case 3:
+            console.log("What computer picked (" + scissors+ ")");
             return scissors;
     }
 }
 
-//Testing Computer choice
-console.log("What computer picked (" + getComputerChoice()+ ")");
 
-//Prompt a choice from the player and capitalize first letter, lower case the rest using casePlayerInput function
+//Capitalize first letter, lower case the rest prompt input
 function casePlayerInput () {
     let playerInput = prompt("Input Rock or Paper or Scissors");
     playerInput = playerInput.charAt(0).toUpperCase() + playerInput.slice(1).toLowerCase();
@@ -55,7 +56,39 @@ function allowedPlayerInput(playerInput) {
     }
 }
 
-allowedPlayerInput(casePlayerInput());
+playerSelection = allowedPlayerInput(casePlayerInput());
+computerSelection = getComputerChoice();
+//console.log(playerSelection);
+//console.log(computerSelection);
 
+// Single round of game 
+// that declares the winner of the round like so: "You Lose! Paper beats Rock" using 
 
-//play a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock" using playRoundFunction
+function playRound(playerSelect, computerSelection) {
+    switch (true) {
+      case (playerSelect == computerSelection):
+        console.log("It's a tie, you and the computer both picked");
+        return "It's a tie, you and the computer both picked " + computerSelection;
+      case (playerSelect === rock && computerSelection === scissors):
+        console.log("You win"2);
+        return "You win"
+      case (playerSelect === paper && computerSelection === rock):
+        console.log("You win");
+        return "You win"
+      case (playerSelect === scissors && computerSelection === paper):
+        console.log("You win");
+        return "You win"
+      case (playerSelect === rock && computerSelection === paper):
+        console.log("You lose");
+        return "You lose";
+      case (playerSelect === paper && computerSelection === scissors):
+        console.log("You lose");
+        return "You lose";
+      case (playerSelect === scissors && computerSelection === rock):
+        console.log("You lose");
+        return "You lose";
+    }
+  }
+  
+
+playRound(playerSelection, computerSelection)
