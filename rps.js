@@ -18,7 +18,8 @@ function getComputerChoice () {
 }
 
 //testing getComputerChoice
-console.log("computer:" + getComputerChoice());
+let computerSelection = getComputerChoice();
+console.log("computer:" + computerSelection);
 
 // Return playerInput with proper alphabet casing to match strings
 function getPlayerChoice () {
@@ -40,7 +41,32 @@ function getPlayerChoice () {
     }
 }
 
-//testing getPlayerChoice
-console.log("player: " + getPlayerChoice());
 
-//playRound function gets play a single round against computer by comparing computerchoice and playerChoice, and then shows the winner with the string like "You Lose! Paper beats Rock"
+//testing getPlayerChoice
+let playerSelection = getPlayerChoice();
+console.log("player: " + playerSelection);
+
+//playRound function gets play a single round against computer by comparing computerchoice and playerChoice
+
+function playRound () {
+    let win = "You win!";
+    let lose = "You Lose!";
+    let tie = "It's a tie, go again!";
+    switch (true) {
+        case (playerSelection == computerSelection):
+            return tie;
+        case (playerSelection == "Rock" && computerSelection == "Paper"):
+            return lose; ///paperBeatsRock
+        case (playerSelection == "Paper" && computerSelection == "Scissor"):
+            return lose; //scissorBeatsPaper
+        case (playerSelection == "Scissor" && computerSelection == "Rock"):
+            return lose; //rockBeatsScissor
+        case (playerSelection == "Rock" && computerSelection == "Scissor"):
+            return win; //rockBeatsScissor
+        case (playerSelection == "Paper" && computerSelection == "Rock"):
+            return win; //paperBeatsRock
+        case (playerSelection == "Scissor" && computerSelection == "Paper"):
+            return win; //scissorBeatsPaper
+    }
+}
+console.log(playRound());
