@@ -1,7 +1,6 @@
 //Make rock paper scissors against computer
 
 
-//game function gets use playRound function as a callback to play 5 total round of the game and keep the score. At the end, will display the winner. Choose a for loop for this one.
 //Create helper functions as needed
 
 // Return random rock/paper/scissor computer choice
@@ -18,8 +17,6 @@ function getComputerChoice () {
 }
 
 //testing getComputerChoice
-let computerSelection = getComputerChoice();
-console.log("computer:" + computerSelection);
 
 // Return playerInput with proper alphabet casing to match strings
 function getPlayerChoice () {
@@ -37,22 +34,24 @@ function getPlayerChoice () {
         return "Scissor";
     }
     else {
-        return "Sorry, you have entered an invalid choice...";
+        return "an invalid choice...";
     }
 }
 
-
 //testing getPlayerChoice
-let playerSelection = getPlayerChoice();
-console.log("player: " + playerSelection);
 
 //playRound function gets play a single round against computer by comparing computerchoice and playerChoice
-
-function playRound () {
-    let win = "You win!";
-    let lose = "You Lose!";
+function playRound() {
+    let playerSelection = getPlayerChoice();
+    let computerSelection = getComputerChoice();
+    console.log("You picked " + playerSelection);
+    console.log("The computer picked " + computerSelection);
+    let win = "You win";
+    let lose = "You lose";
     let tie = "It's a tie, go again!";
     switch (true) {
+        case (playerSelection == "an invalid choice..."):
+            return "Let's try again";
         case (playerSelection == computerSelection):
             return tie;
         case (playerSelection == "Rock" && computerSelection == "Paper"):
@@ -69,4 +68,36 @@ function playRound () {
             return win; //scissorBeatsPaper
     }
 }
-console.log(playRound());
+//singleGame = playRound();
+
+//game function gets use playRound function as a callback to play 5 total round of the game and keep the score. At the end, will display the winner. Choose a for loop for this one.
+//record wincount, losecount and tiecount
+
+function game (playRound) {
+    let winCount = 0;
+    let loseCount = 0;
+    let tieCount = 0;
+    for (i = 0; i < 5; i++) {
+        let result = playRound();
+        if (result == "You win") {
+            winCount += 1;
+            console.log(result + " the round " + (parseInt(i)+1));
+            console.log("_________________");
+        }
+        else if (result == "You lose") {
+            loseCount += 1;
+            console.log(result + " the round " + (parseInt(i) +1));
+            console.log("_________________");
+        }
+        else {
+            tieCount += 1;
+            console.log(result);
+            console.log("_________________");
+            i -= 1;
+        }
+    }
+    return console.log('wincounts: ' + winCount + ' losecounts: ' + loseCount + ' tiecounts ' + tieCount);
+    
+}
+game(playRound);
+
