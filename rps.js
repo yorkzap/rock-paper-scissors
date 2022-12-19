@@ -1,8 +1,5 @@
-//Make rock paper scissors against computer
-
-
+//Five round Rock, Paper and Scissors against computer
 // Variables for the game
-
 let rock = "Rock";
 let paper = "Paper";
 let scissors = "Scissors";
@@ -10,7 +7,6 @@ let invalidChoice = "Wrong input";
 let win = "You win";
 let lose = "You lose";
 let tie = "It's a tie";
-
 
 // Return random rock/paper/scissor computer choice
 function getComputerChoice () {
@@ -25,16 +21,14 @@ function getComputerChoice () {
     }
 }
 
-
-//Capitalize first letter, lower case the rest prompt input
+//Prompt input with upper case first letter and lower case body
 function casePlayerInput () {
     let playerInput = prompt("Input Rock or Paper or Scissors");
     playerInput = playerInput.charAt(0).toUpperCase() + playerInput.slice(1).toLowerCase();
     return playerInput;
 }
 
-
-// Allow only rock/paper/scissors input
+// Sort ambigious rock/paper/scissors inputs and invalid inputs
 function allowedPlayerInput(playerInput) {
     switch (true) {
         case (playerInput == rock || playerInput == rock + "s"):
@@ -50,10 +44,7 @@ function allowedPlayerInput(playerInput) {
     }
 }
 
-
-
-// Single round of game 
-
+// Single round of game
 function playRound(playerSelection, computerSelection) {
     switch (true) {
       case (playerSelection == computerSelection):
@@ -80,28 +71,21 @@ function playRound(playerSelection, computerSelection) {
     }
   }
   
-
-
-//Call the playRound() 5 times keeping score
-
+// Call playRound() 5 times keeping score
 function game () {
     let winCount = 0;
     let loseCount = 0;
-    let winner;
-    for (i = 0; i < 10; i++) {
-
+    for (i = 0; i < 11; i++) {
         if (winCount == 5) {
             console.log(win);
-            i = 11;
+            i = 12;
             return win;
         }
-
         if (loseCount == 5) {
             console.log(lose);
-            i = 11;
+            i = 12;
             return lose;
         }
-
         playerSelection = allowedPlayerInput(casePlayerInput());
         computerSelection = getComputerChoice();
         round = playRound(playerSelection, computerSelection);
@@ -120,5 +104,4 @@ function game () {
         }
     }
 }
-
 game();
