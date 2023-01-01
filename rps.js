@@ -1,12 +1,18 @@
-//Five round Rock, Paper and Scissors against computer
+//Five round Rock, Paper and Scissor game against the computer
+
 // Variables for the game
-let rock = "Rock";
-let paper = "Paper";
-let scissors = "Scissors";
-let invalidChoice = "Wrong input";
-let win = "You win";
-let lose = "You lose";
-let tie = "It's a tie";
+const rock = "Rock";
+const paper = "Paper";
+const scissors = "Scissors";
+let win = 0;
+let lose = 0;
+let tie = 0;
+let computerSelection;
+let playerSelection;
+const result = document.querySelector('#result');
+const rematch = document.querySelector('.hiddenResultButton');
+const ai = document.querySelector('#computer');
+const human = document.querySelector('#human');
 
 // Return random rock/paper/scissor computer choice
 function getComputerChoice () {
@@ -21,87 +27,76 @@ function getComputerChoice () {
     }
 }
 
-//Prompt input with upper case first letter and lower case body
-function casePlayerInput () {
-    let playerInput = prompt("Input Rock or Paper or Scissors");
-    playerInput = playerInput.charAt(0).toUpperCase() + playerInput.slice(1).toLowerCase();
-    return playerInput;
-}
+// play a round of game until win or lose count reaches 5
+function playRound(playerSelection) {
+    while (win < 5 && lose < 5) {
+      computerSelection = getComputerChoice();
+      const roundResult = document.querySelector('#container h2');
+      if (playerSelection == computerSelection) {
+        roundResult.textContent = "You and the computer both picked " + computerSelection;
+          tie++;
+          ai.textContent = "AI: " + lose;
+          human.textContent = "Human race: " + win;
+          break;
+      }
 
-// Sort ambigious rock/paper/scissors inputs and invalid inputs
-function allowedPlayerInput(playerInput) {
-    switch (true) {
-        case (playerInput == rock || playerInput == rock + "s"):
-            return rock;
-
-        case (playerInput == paper || playerInput == paper + "s"):
-            return paper;
-
-        case (playerInput == scissors || playerInput == scissors.slice(0,-1)):
-            return scissors;
-        default:
-            return invalidChoice;
-    }
-}
-
-// Single round of game
-function playRound(playerSelection, computerSelection) {
-    switch (true) {
-      case (playerSelection == computerSelection):
-        console.log("You and the computer both picked " + computerSelection);
-        return tie;
-      case (playerSelection === rock && computerSelection === scissors):
-        console.log(playerSelection + " beats " + computerSelection);
-        return win;
-      case (playerSelection === paper && computerSelection === rock):
-        console.log(playerSelection + " beats " + computerSelection);
-        return win;
-      case (playerSelection === scissors && computerSelection === paper):
-        console.log(playerSelection + " beats " + computerSelection);
-        return win;
-      case (playerSelection === rock && computerSelection === paper):
-        console.log(computerSelection + " beats " + playerSelection);
-        return lose;
-      case (playerSelection === paper && computerSelection === scissors):
-        console.log(computerSelection + " beats " + playerSelection);
-        return lose;
-      case (playerSelection === scissors && computerSelection === rock):
-        console.log(computerSelection + " beats " + playerSelection);
-        return lose;
+      else if ((playerSelection === rock && computerSelection === scissors) ||
+      (playerSelection === paper && computerSelection === rock) ||
+      (playerSelection === scissors && computerSelection === paper)) {
+        roundResult.textContent = playerSelection + " beats " + computerSelection;
+        win++
+        ai.textContent = "AI: " + lose;
+        human.textContent = "Human race: " + win;
+        checkResult()
+        break;
+      }
+      else {
+        roundResult.textContent = computerSelection + " beats " + playerSelection;
+        lose++;
+        ai.textContent = "AI: " + lose;
+        human.textContent = "Human race: " + win;
+        checkResult()
+        break;
+      }
     }
   }
-  
-// Call playRound() 5 times keeping score
-function game () {
-    let winCount = 0;
-    let loseCount = 0;
-    for (i = 0; i < 11; i++) {
-        if (winCount == 5) {
-            console.log(win);
-            i = 12;
-            return win;
-        }
-        if (loseCount == 5) {
-            console.log(lose);
-            i = 12;
-            return lose;
-        }
-        playerSelection = allowedPlayerInput(casePlayerInput());
-        computerSelection = getComputerChoice();
-        round = playRound(playerSelection, computerSelection);
-        
-        if (round == win && winCount < 5) {
-            winCount += 1;
-            console.log(win + " the game " + ((parseInt(i) + 1)));
-        }
-        else if (round == lose && loseCount <5) {
-            loseCount += 1;
-            console.log(lose + " the game " + ((parseInt(i) + 1)));
-        }
-        else if (round == tie) {
-            i -= 1;
-            console.log(tie + "...let's try again");
-        }
-    }
+
+
+// Display winner or loser of the 5 games
+function checkResult() {
+  if (win == 5) {
+    result.textContent="You've won " + win + " rounds! Shabhash Singha. But can you..."
+    rematch.classList.remove('hiddenResultButton');
+    rematch.addEventListener('click', () => retry());
+  }
+  else if (lose == 5) {
+    result.textContent="AI has won " + lose + " rounds! AI will take over...unless you";
+    rematch.classList.remove('hiddenResultButton');
+    rematch.addEventListener('click', () => retry());
+  }
 }
-game();
+
+
+// Play 5 more rounds by resetting the initializer and hiding the button/result text
+function retry() {
+  win = 0;
+  lose = 0;
+  rematch.classList.add('hiddenResultButton');
+  ai.textContent = "AI: " + lose;
+  human.textContent = "Human race: " + win;
+  result.textContent="";
+}
+
+// One button for each selection with event listener added to the buttons
+const choices = document.querySelectorAll('.choices');
+choices.forEach((choice, i) => {
+    if (i == 0) {
+        choice.addEventListener('click', () => playRound(rock, computerSelection));
+    }
+    else if (i == 1) {
+        choice.addEventListener('click', () => playRound(paper, computerSelection));
+    }
+    else {
+        choice.addEventListener('click', () => playRound(scissors, computerSelection));
+    }
+});
